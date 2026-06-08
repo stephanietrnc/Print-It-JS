@@ -17,24 +17,28 @@ const slides = [
 	}
 ]
 
+// à mettre juste après la déclaration du tableau 
+let currentSlide = 0; // La slide actuelle (commence à 0)
+
 // On ajoute un event listener sur les flèches pour détecter les clics (mis à jour)
 const arrowLeft = document.querySelector("#arrow-left");
 const arrowRight = document.querySelector("#arrow-right");
 
 arrowLeft.addEventListener("click", function() {
+    	if (currentSlide > 0) {
+        currentSlide--;
+    } else {
+        currentSlide = slides.length - 1; // On va à la fin (défilement infini)
+    }
+    updateSlide(currentSlide);
+});
+ 
+
+arrowRight.addEventListener("click", function() {
     if (currentSlide < slides.length - 1) {
         currentSlide++;
     } else {
         currentSlide = 0; // On revient au début (défilement infini)
-    }
-    updateSlide(currentSlide);
-});
-
-arrowRight.addEventListener("click", function() {
-   	if (currentSlide > 0) {
-        currentSlide--;
-    } else {
-        currentSlide = slides.length - 1; // On va à la fin (défilement infini)
     }
     updateSlide(currentSlide);
 });
@@ -56,8 +60,6 @@ slides.forEach(function(slide, index) {
     dotsContainer.appendChild(dot);
 });
 
-
-let currentSlide = 0; // La slide actuelle (commence à 0)
 
 const bannerImg = document.querySelector(".banner-img");
 const bannerText = document.querySelector("#banner p");
